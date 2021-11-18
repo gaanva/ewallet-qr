@@ -1,0 +1,29 @@
+<!-- Toolbar -->
+
+<div class="content" role="main">
+  <h2>QR CODE</h2>
+
+  <div>
+    <qr-code [value]="values" [size]="width" [level]="level"></qr-code>
+  </div>
+  <textarea input [(ngModel)]="values" placeholder="name">
+    <!-- input [(ngModel)]="values" placeholder="name" / -->
+  </textarea>
+  
+  <br />
+  <br />
+  <br />
+  <strong>Start Device Flow</strong>:
+  <p>Start the device Flow, and wait till the user scan the QR Code.</p>
+  <button (click)="startdeviceFlow()">START</button>
+
+  
+  
+  <br />
+  <br />
+  <br />
+  <p>Too primitive, but for PoCing, after the user scan the QR Code this action should be triggered automatically. (for now click the button...)</p>
+  <button (click)="getToken()">Get TOKEN from Totem</button>
+  
+  
+<router-outlet></router-outlet>
