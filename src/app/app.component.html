@@ -24,6 +24,11 @@
   <br />
   <p>Too primitive, but for PoCing, after the user scan the QR Code this action should be triggered automatically. (for now click the button...)</p>
   <button (click)="getToken()">Get TOKEN from Totem</button>
-  
+  <br />
+  <textarea input [(ngModel)]="token" placeholder="token">
+    <!-- input [(ngModel)]="values" placeholder="name" / -->
+  </textarea>
+
+
   
 <router-outlet></router-outlet>

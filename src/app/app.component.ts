@@ -11,6 +11,7 @@ export class AppComponent {
   public level: "L" | "M" | "Q" | "H";
   public width: number;
   public deviceCode:string = null;
+  public token: string = null;
 
   constructor(private deviceCF:DeviceCodeFlowService) {
     this.level = "L";
@@ -52,10 +53,12 @@ export class AppComponent {
       (response) => {
         console.log('finishing REQUESTING tokens');
         console.log(JSON.stringify(response));
+        this.token = JSON.stringify(response);
         //this.values = response.r.verification_uri_complete;
       },
       response => {
           console.log("get token error", response);
+          
       },
       () => {
           console.log("The POST observable is now completed.");
