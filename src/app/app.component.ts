@@ -10,13 +10,17 @@ export class AppComponent {
   public values: string = null;
   public level: "L" | "M" | "Q" | "H";
   public width: number;
+  public userCode:string = null;
   public deviceCode:string = null;
   public token: string = null;
+  public payment:string;
 
   constructor(private deviceCF:DeviceCodeFlowService) {
     this.level = "L";
-    this.values = "Start Device Flow process...";
+    this.values = "QR Code URL.";
     this.width = 200;
+
+    
   }
 
   qrLevel(val: "L" | "M" | "Q" | "H") {
@@ -37,7 +41,8 @@ export class AppComponent {
       (response) => {
         console.log('finishing DCF')
         console.log(JSON.stringify(response.r));
-        this.deviceCode =response.r.device_code;
+        this.userCode =response.r.user_code;
+        this.deviceCode = response.r.device_code;
         this.values = response.r.verification_uri_complete;
       },
       response => {
@@ -56,13 +61,28 @@ export class AppComponent {
         this.token = JSON.stringify(response);
         //this.values = response.r.verification_uri_complete;
       },
-      response => {
-          console.log("get token error", response);
+      err => {
+          console.log("get token error", err);
           
       },
       () => {
           console.log("The POST observable is now completed.");
     });
+  }
+
+
+  //once the token is received, then trigger the payment agains the ewallet API.
+  async makePayment(){
+    this.deviceCF.makeAPayment(this.token).subscribe(
+      (response) => {
+        console.log('respuesta del payment endpoint: ' + JSON.stringify(response));
+        this.payment = JSON.stringify(response);
+      },
+      (error) => {
+        console.error(error);
+        alert("error making the payment " + error);
+      }
+    );
   }
     
 }

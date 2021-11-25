@@ -7,10 +7,11 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DeviceCodeFlowService {
-  private bckndUrl = "https://ewallet-bcknd.herokuapp.com";
-  //private bckndUrl = "http://localhost:3010";
+  //private bckndUrl = "https://ewallet-bcknd.herokuapp.com";
+  public totem_token$:Observable<any>;
+  private bckndUrl = "http://localhost:3010";
+  
   constructor(private http: HttpClient) { 
-
   }
   /*
   Este metodo como respuesta me daria esto:
@@ -53,6 +54,26 @@ export class DeviceCodeFlowService {
   */
   obtainToken(deviceCode:string){
     console.log(deviceCode);
-    return this.http.get<any>(this.bckndUrl + "/getDeviceToken?device_code="+deviceCode);
+    return this.http.get(this.bckndUrl + "/getDeviceToken?device_code="+deviceCode);
   }
+  /*
+  * TRy to do a payment using the received token,
+  * calling to my API backend services
+  */
+  makeAPayment(token:string){
+    console.log("ready to make the payment");
+    //would use interceptors, but it is a ease use case...
+    const headers = new HttpHeaders();
+    headers.set('Authorization', token);
+
+    const body = {
+      "price": "1000",
+      "product": "103 plato de comida",
+      "Quantity": "1",
+      "Origin": "The Totem"
+    };
+    return this.http.post<any>(this.bckndUrl + "/makePayment", body, {headers});
+    
+  }
+
 }

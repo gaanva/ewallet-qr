@@ -1,34 +1,55 @@
 <!-- Toolbar -->
 
 <div class="content" role="main">
-  <h2>QR CODE</h2>
+  <h2>Device Authorization Flow (OAuth2)</h2>
 
-  <div>
-    <qr-code [value]="values" [size]="width" [level]="level"></qr-code>
-  </div>
-  <textarea input [(ngModel)]="values" placeholder="name">
-    <!-- input [(ngModel)]="values" placeholder="name" / -->
-  </textarea>
-  
-  <br />
-  <br />
-  <br />
-  <strong>Start Device Flow</strong>:
-  <p>Start the device Flow, and wait till the user scan the QR Code.</p>
-  <button (click)="startdeviceFlow()">START</button>
+  <table>
+    <tr>
+      <td>
+        <p><strong>Step 1) -></strong> Start the device Aiuthorization Flow.</p>
+        <button (click)="startdeviceFlow()">START</button>
 
-  
-  
-  <br />
-  <br />
-  <br />
-  <p>Too primitive, but for PoCing, after the user scan the QR Code this action should be triggered automatically. (for now click the button...)</p>
-  <button (click)="getToken()">Get TOKEN from Totem</button>
-  <br />
-  <textarea input [(ngModel)]="token" placeholder="token">
-    <!-- input [(ngModel)]="values" placeholder="name" / -->
-  </textarea>
-
+      </td>
+      <td>
+          <div>
+            <qr-code [value]="values" [size]="width" [level]="level"></qr-code><br>
+            <textarea input [(ngModel)]="values" placeholder="name">
+              <!-- input [(ngModel)]="values" placeholder="name" / -->
+            </textarea>
+          </div>
+      </td>
+      
+    </tr>
+    <tr>
+      
+        <p><strong>Step 2) -></strong> Scan the QR Code with your phone camera or your ewallet app!.<br>
+        and confirm the device. It is the USER CODE will see:<strong>{{userCode}}</strong></p>
+      
+    </tr>
+    <tr>
+      <td>
+        <p><strong>Step 3) -> </strong>After finish the authorization proceess in your phone, obtain the token for the Totem.</p>
+        <button (click)="getToken()">Get TOKEN from Totem</button>
+        
+      </td>
+      <td>
+        <textarea input [(ngModel)]="token" placeholder="Totem Access Token">
+          <!-- input [(ngModel)]="values" placeholder="name" / -->
+        </textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p><strong>Step 4) -> </strong>Make the payment!</p>
+        <button (click)="makePayment()">Make the Payment</button>
+      </td>
+      <td>
+        <textarea input [(ngModel)]="payment" placeholder="payment">
+          <!-- input [(ngModel)]="values" placeholder="name" / -->
+        </textarea>
+      </td>
+    </tr>
+  </table>
 
   
 <router-outlet></router-outlet>
