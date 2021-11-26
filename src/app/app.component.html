@@ -3,44 +3,48 @@
 <div class="content" role="main">
   <h2>Device Authorization Flow (OAuth2)</h2>
 
-  <table>
-    <tr>
+  <table class="text-center align-middle">
+    <tr >
       <td>
         <p><strong>Step 1) -></strong> Start the device Aiuthorization Flow.</p>
         <button (click)="startdeviceFlow()">START</button>
 
       </td>
-      <td>
-          <div>
-            <qr-code [value]="values" [size]="width" [level]="level"></qr-code><br>
-            <textarea input [(ngModel)]="values" placeholder="name">
-              <!-- input [(ngModel)]="values" placeholder="name" / -->
-            </textarea>
-          </div>
-      </td>
+      
       
     </tr>
-    <tr>
-      
+    <tr *ngIf="userCode">
+      <td>
         <p><strong>Step 2) -></strong> Scan the QR Code with your phone camera or your ewallet app!.<br>
         and confirm the device. It is the USER CODE will see:<strong>{{userCode}}</strong></p>
-      
+      </td>
+      <td>
+        <div>
+          <qr-code [value]="values" [size]="width" [level]="level"></qr-code><br>
+          <textarea input [(ngModel)]="values" placeholder="name">
+            <!-- input [(ngModel)]="values" placeholder="name" / -->
+          </textarea>
+        </div>
+      </td>
     </tr>
-    <tr>
+    <tr *ngIf="userCode">
       <td>
         <p><strong>Step 3) -> </strong>After finish the authorization proceess in your phone, obtain the token for the Totem.</p>
         <button (click)="getToken()">Get TOKEN from Totem</button>
         
       </td>
-      <td>
+      <td *ngIf="token && !token.includes('Error')">
         <textarea input [(ngModel)]="token" placeholder="Totem Access Token">
           <!-- input [(ngModel)]="values" placeholder="name" / -->
         </textarea>
       </td>
+      <td *ngIf="token && token.includes('Error')">
+        <p style="color:red"><strong>ERROR! Did the user finish the Step2 succesfully?</strong></p>
+      </td>
     </tr>
-    <tr>
+    <tr *ngIf="token && !token.includes('Error')">
       <td>
-        <p><strong>Step 4) -> </strong>Make the payment!</p>
+        <p><strong>Step 4) -> </strong>Make the payment! The details should be presented previously.</p>
         <button (click)="makePayment()">Make the Payment</button>
       </td>
       <td>

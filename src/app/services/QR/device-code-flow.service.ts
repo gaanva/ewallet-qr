@@ -7,9 +7,9 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DeviceCodeFlowService {
-  //private bckndUrl = "https://ewallet-bcknd.herokuapp.com";
+  private bckndUrl = "https://ewallet-bcknd.herokuapp.com";
   public totem_token$:Observable<any>;
-  private bckndUrl = "http://localhost:3010";
+  //private bckndUrl = "http://localhost:3010";
   
   constructor(private http: HttpClient) { 
   }
