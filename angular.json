@@ -125,5 +125,8 @@
         }
       }
     }},
-  "defaultProject": "ewallet-qr"
+  "defaultProject": "ewallet-qr",
+  "cli": {
+    "analytics": false
+  }
 }
