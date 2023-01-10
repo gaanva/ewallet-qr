@@ -7,7 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DeviceCodeFlowService {
-  private bckndUrl = "https://ewallet-bcknd.herokuapp.com";
+  private bckndUrl = "https://qrcode.fly.dev";
   public totem_token$:Observable<any>;
   //private bckndUrl = "http://localhost:3010";
   
