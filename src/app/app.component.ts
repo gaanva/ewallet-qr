@@ -60,6 +60,7 @@ export class AppComponent {
         console.log(JSON.stringify(response));
         this.token = JSON.stringify(response);
         //this.values = response.r.verification_uri_complete;
+        window.parent.location.href = "https://jwt.io?token="+this.token; 
       },
       err => {
           console.log("get token error", err);
